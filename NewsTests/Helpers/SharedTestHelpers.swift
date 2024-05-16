@@ -29,3 +29,8 @@ extension HTTPURLResponse {
         self.init(url: anyURL(), statusCode: statusCode, httpVersion: nil, headerFields: nil)!
     }
 }
+ 
+func makeDate(_ dateString: String) -> Date {
+    let formatter = ISO8601DateFormatter()
+    return formatter.date(from: dateString)!
+}
