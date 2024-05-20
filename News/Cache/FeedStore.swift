@@ -1,5 +1,5 @@
 //
-//  ArticleStore.swift
+//  FeedStore.swift
 //  EasyNews
 //
 //  Created by Ye Ma on 26/01/2023.
@@ -9,7 +9,7 @@ import Foundation
 
 public typealias CachedArticle = (articles: [LocalArticle], timestamp: Date)
 
-public protocol ArticleStore {
+public protocol FeedStore {
     typealias DeletionResult = Result<Void, Error>
     typealias DeletionCompletion = (DeletionResult) -> Void
     
