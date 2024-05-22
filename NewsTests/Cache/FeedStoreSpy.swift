@@ -1,16 +1,16 @@
 //
-//  ArticleStoreSpy.swift
+//  FeedStoreSpy.swift
 //  NewsTests
 //
 //  Created by Ye Ma on 2024/5/17.
 //
 
 import Foundation
-import NewsFeature
+import News
 
-class ArticleStoreSpy: ArticleStore {
+class FeedStoreSpy: FeedStore {
     enum ReceivedMessage: Equatable {
-        case deleteCachedArticle
+        case deleteCachedFeed
         case insert([LocalArticle], Date)
         case retrieve
     }
@@ -21,9 +21,9 @@ class ArticleStoreSpy: ArticleStore {
     private var insertionCompletions = [InsertionCompletion]()
     private var retrievalCompletions = [RetrievalCompletion]()
     
-    func deleteCachedArticle(completion: @escaping DeletionCompletion) {
+    func deleteCachedFeed(completion: @escaping DeletionCompletion) {
         deletionCompletions.append(completion)
-        receivedMessages.append(.deleteCachedArticle)
+        receivedMessages.append(.deleteCachedFeed)
     }
     
     func completeDeletion(with error: Error, at index: Int = 0) {

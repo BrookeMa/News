@@ -1,5 +1,5 @@
 //
-//  ArticleStoreSpecs.swift
+//  FeedStoreSpecs.swift
 //  EasyNewsTests
 //
 //  Created by Ye Ma on 27/01/2023.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol ArticleStoreSpecs {
+protocol FeedStoreSpecs {
     func test_retrieve_deliversEmptyOnEmptyCache()
     func test_retrieve_hasNoSideEffectsOnEmptyCache()
     func test_retrieve_deliversFoundValuesOnNonEmptyCache()
@@ -25,20 +25,20 @@ protocol ArticleStoreSpecs {
     func test_storeSideEffects_runSerially()
 }
 
-protocol FailableRetrieveArticleStoreSpecs: ArticleStoreSpecs {
+protocol FailableRetrieveFeedStoreSpecs: FeedStoreSpecs {
     func test_retrieve_deliversFailureOnRetrievalError()
     func test_retrieve_hasNoSideEffectsOnFailure()
 }
 
-protocol FailableInsertArticleStoreSpecs: ArticleStoreSpecs {
+protocol FailableInsertFeedStoreSpecs: FeedStoreSpecs {
     func test_insert_deliverErrorOnInsertionError()
     func test_insert_hasNoSideEffectsOnInsertionError()
 }
 
-protocol FailableDeleteAricleStoreSpecs: ArticleStoreSpecs {
+protocol FailableDeleteFeedStoreSpecs: FeedStoreSpecs {
     func test_delete_deliversErrorOnDeletionError()
     func test_delete_hasNoSideEffectsOnDeletionError()
 }
 
-typealias FailableArticleStoreSpecs = FailableRetrieveArticleStoreSpecs & FailableInsertArticleStoreSpecs & FailableDeleteAricleStoreSpecs
+typealias FailableFeedStoreSpecs = FailableRetrieveFeedStoreSpecs & FailableInsertFeedStoreSpecs & FailableDeleteFeedStoreSpecs
 

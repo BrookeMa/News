@@ -1,5 +1,5 @@
 //
-//  CoreDataArticleStore.swift
+//  CoreDataFeedStore.swift
 //  EasyNews
 //
 //  Created by Ye Ma on 24/01/2023.
@@ -7,12 +7,12 @@
 
 import CoreData
 
-public final class CoreDataArticleStore: ArticleStore {
+public final class CoreDataFeedStore: FeedStore {
     private let container: NSPersistentContainer
     private let context: NSManagedObjectContext
     
     public init(storeURL: URL, bundle: Bundle = .main) throws {
-        container = try NSPersistentContainer.load(modelName: "ArticleStore", url: storeURL, in: bundle)
+        container = try NSPersistentContainer.load(modelName: "FeedStore", url: storeURL, in: bundle)
         context = container.newBackgroundContext()
     }
 
@@ -26,7 +26,7 @@ public final class CoreDataArticleStore: ArticleStore {
         }
     }
     
-    public func deleteCachedArticle(completion: @escaping DeletionCompletion) {
+    public func deleteCachedFeed(completion: @escaping DeletionCompletion) {
         perform { context in
             completion(Result {
                 try ManagedCache.find(in: context).map(context.delete).map(context.save)

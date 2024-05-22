@@ -1,14 +1,14 @@
 //
-//  CoreDataArticleStoreTests.swift
+//  CoreDataFeedStoreTests.swift
 //  EasyNewsTests
 //
 //  Created by Ye Ma on 28/01/2023.
 //
 
 import XCTest
-import EasyNewsFeature
+import News
 
-class CoreDataArticleStoreTests: XCTestCase, ArticleStoreSpecs {
+class CoreDataFeedStoreTests: XCTestCase, FeedStoreSpecs {
     
     func test_retrieve_deliversEmptyOnEmptyCache() {
         let sut = makeSUT()
@@ -83,10 +83,10 @@ class CoreDataArticleStoreTests: XCTestCase, ArticleStoreSpecs {
 
     // - MARK: Helpers
 
-    private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> ArticleStore {
-        let storeBundle = Bundle(for: CoreDataArticleStore.self)
+    private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> FeedStore {
+        let storeBundle = Bundle(for: CoreDataFeedStore.self)
         let storeURL = URL(fileURLWithPath: "/dev/null")
-        let sut = try! CoreDataArticleStore(storeURL: storeURL, bundle: storeBundle)
+        let sut = try! CoreDataFeedStore(storeURL: storeURL, bundle: storeBundle)
         trackForMemoryLeaks(sut, file: file, line: line)
         return sut
     }

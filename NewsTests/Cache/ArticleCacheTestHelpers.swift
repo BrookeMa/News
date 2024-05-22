@@ -6,11 +6,12 @@
 //
 
 import Foundation
-import EasyNewsFeature
+import News
 
 func uniqueArticle() -> Article {
-    return Article(author: "any", title: "any", description: "description \(UUID())", url: anyURL(), source: "any", image: anyURL(), published: Date())
+    return Article(author: "any", title: "any", description: "description \(UUID())", url: anyURL(), source: "any", image: anyURL(), category: "any", language: "any", country: "any", published: Date())
 }
+
 
 func uniqueArticleItem() -> (models: [Article], local: [LocalArticle]) {
     let models = [uniqueArticle(), uniqueArticle()]
@@ -20,8 +21,10 @@ func uniqueArticleItem() -> (models: [Article], local: [LocalArticle]) {
                                           url: $0.url,
                                           source: $0.source,
                                           image: $0.url,
+                                          category: $0.category,
+                                          language: $0.language,
+                                          country: $0.country,
                                           published: $0.published)}
     return (models, local)
 }
-
 

@@ -15,6 +15,9 @@ class ManagedArticle: NSManagedObject {
     @NSManaged var url: URL
     @NSManaged var source: String
     @NSManaged var image: URL?
+    @NSManaged var category: String
+    @NSManaged var language: String
+    @NSManaged var country: String
     @NSManaged var published: Date
     @NSManaged var cache: ManagedCache
 }
@@ -29,6 +32,9 @@ extension ManagedArticle {
             managed.url = local.url
             managed.source = local.source
             managed.image = local.image
+            managed.category = local.category
+            managed.language = local.language
+            managed.country = local.country
             managed.published = local.published
             return managed
         })
@@ -41,6 +47,9 @@ extension ManagedArticle {
                             url: url,
                             source: source,
                             image: image,
+                            category: category,
+                            language: language,
+                            country: country,
                             published: published)
     }
 }

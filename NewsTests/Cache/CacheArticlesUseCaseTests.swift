@@ -6,7 +6,7 @@
 //
 
 import XCTest
-import EasyNewsFeature
+import News
 
 class CacheArticlesUseCaseTests: XCTestCase {
     
@@ -21,7 +21,7 @@ class CacheArticlesUseCaseTests: XCTestCase {
         
         sut.save(uniqueArticleItem().models) { _ in }
         
-        XCTAssertEqual(store.receivedMessages, [.deleteCachedArticle])
+        XCTAssertEqual(store.receivedMessages, [.deleteCachedFeed])
     }
     
     func test_save_doesNotRequestsCacheInsertionOnDeletionError() {
@@ -31,7 +31,7 @@ class CacheArticlesUseCaseTests: XCTestCase {
         sut.save(uniqueArticleItem().models) { _ in }
         store.completeDeletion(with: deletionError)
         
-        XCTAssertEqual(store.receivedMessages, [.deleteCachedArticle])
+        XCTAssertEqual(store.receivedMessages, [.deleteCachedFeed])
     }
     
     func test_save_requestsNewCacheInsertionWithTimestampOnSuccessfulDeletion() {
@@ -42,7 +42,7 @@ class CacheArticlesUseCaseTests: XCTestCase {
         sut.save(articles.models) { _ in }
         store.completeDeletionSuccessfully()
 
-        XCTAssertEqual(store.receivedMessages, [.deleteCachedArticle, .insert(articles.local, timestamp)])
+        XCTAssertEqual(store.receivedMessages, [.deleteCachedFeed, .insert(articles.local, timestamp)])
     }
     
     func test_save_failsOnDeletionError() {
@@ -75,8 +75,8 @@ class CacheArticlesUseCaseTests: XCTestCase {
     
     // MARK: - Helpers
     
-    private func makeSUT(currentDate: @escaping () -> Date = Date.init, file: StaticString = #filePath, line: UInt = #line) -> (sut: LocalArticlesLoader, store: ArticleStoreSpy) {
-        let store = ArticleStoreSpy()
+    private func makeSUT(currentDate: @escaping () -> Date = Date.init, file: StaticString = #filePath, line: UInt = #line) -> (sut: LocalArticlesLoader, store: FeedStoreSpy) {
+        let store = FeedStoreSpy()
         let sut = LocalArticlesLoader(store: store, currentDate: currentDate)
         trackForMemoryLeaks(store, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
