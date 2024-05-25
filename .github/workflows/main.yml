@@ -1,47 +1,30 @@
-name: CI/CD for iOS
+name: News
 
+# Controls when the action will run.
+# Triggers the workflow on pull request events but only for the master branch.
 on:
-  push:
-    branches:
-      - main
+  pull_request:
+    branches: [ master ]
 
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  build:
-    runs-on: macOS-latest
+  # This workflow contains a single job called "build-and-test"
+  build-and-test:
+    # The type of runner that the job will run on
+    runs-on: macos-14-xlarge
 
+    timeout-minutes: 8
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v4
 
-    - name: Set up Xcode
-      uses: actions/setup-xcode@v2
-      with:
-        xcode-version: '15.x' # Choose the appropriate version
-
-    - name: Install dependencies
-      run: |
-        bundle install
-        bundle exec fastlane install_plugins
-
-    - name: Build and test
-      run: bundle exec fastlane build_and_test
-
-  deploy:
-    runs-on: macOS-latest
-
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-
-    - name: Set up Xcode
-      uses: actions/setup-xcode@v2
-      with:
-        xcode-version: '15.x'
-
-    - name: Install dependencies
-      run: |
-        bundle install
-        bundle exec fastlane install_plugins
-
-    - name: Deploy to App Store
-      run: bundle exec fastlane deploy_to_app_store
+    - name: Select Xcode
+      run: sudo xcode-select -switch /Applications/Xcode_15.4.app
+      
+    - name: Xcode version
+      run: /usr/bin/xcodebuild -version
+      
+    - name: Build and Test
+      run: xcodebuild clean build test -workspace Workspace.xcworkspace -scheme "News" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -sdk iphonesimulator -destination "platform=iOS Simulator,name=iPhone 15 Pro,OS=17.5" ONLY_ACTIVE_ARCH=YES
